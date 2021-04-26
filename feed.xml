@@ -28,4 +28,3 @@ layout: null
     {% endfor %}
   </channel>
 </rss>
-© 2021 GitHub, Inc.
