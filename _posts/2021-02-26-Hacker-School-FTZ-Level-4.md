@@ -157,7 +157,7 @@ finger 서비스를 찾아보니 /etc/xinetd.d/ 디렉터리에 finger 서비스
 /etc/xinetd.d/backdoor 설정 파일을 참조하고,  
 설정 파일에 정의된 /home/level4/tmp/backdoor가 데몬으로 실행됩니다.
 
-<hr size="20px">
+<hr width="20px">
 
 리눅스에서는 $PATH 환경 변수에 명령 등이 속해 있는 경로를 저장합니다.  
 $PATH에 저장된 경로에 있는 명령어는 명령어 이름만 쳐도 실행이 가능합니다.  
@@ -179,7 +179,7 @@ ls 파일은 /bin/ 디렉터리에 있습니다.
 
 로컬에서 finger 명령어를 치면 /usr/bin/finger 파일이 실행됩니다.  
 
-<hr size="20px">
+<hr width="20px">
 
 <span style="background-color: #ffcdc0">즉, finger로 원격지 서버에 접속해야 xinetd에 의해 backdoor(finger)의 my-pass 데몬이 실행되니,</span>  
 <span style="background-color: #ffcdc0">원격으로 finger 서비스에 접속해야 level5의 비밀번호를 알아낼 수 있습니다.</span>  
