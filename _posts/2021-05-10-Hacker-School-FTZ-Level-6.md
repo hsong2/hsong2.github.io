@@ -5,6 +5,7 @@ description: "Do you know the telnet vulnerability of BBS service?"
 comments: true
 categories: ftz
 ---
+
 <img data-action="zoom" src='{{ "assets/ftz/level6/1.jpg" | relative_url }}' alt='relative'>  
 
 ## 1) level6/what the hell 입력해 로그인  
