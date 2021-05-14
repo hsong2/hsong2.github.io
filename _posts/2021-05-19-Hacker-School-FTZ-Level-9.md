@@ -5,7 +5,7 @@ description: "Do you know the buffer over flow?"
 comments: true
 categories: ftz
 ---
-<!--
+
 <img data-action="zoom" src='{{ "assets/ftz/level9/1.jpg" | relative_url }}' alt='relative'>  
 
 ## 1) level9/apple 입력해 로그인  
@@ -40,5 +40,3 @@ main(){
 
 buf2 배열에 "go" 문자열이 들어있으면 level10 권한으로 bash가 동작되나 봅니다.   
 사용자에게 입력받은 데이터는 buf 배열에 저장되는데 어떻게 하면 buf2에 문자열을 입력할 수 있을까요?  
-
--->

@@ -5,7 +5,7 @@ description: "Do you know the John the Ripper?"
 comments: true
 categories: ftz
 ---
-<!--
+
 <img data-action="zoom" src='{{ "assets/ftz/level8/1.jpg" | relative_url }}' alt='relative'>  
 
 ## 1) level8/break the world 입력해 로그인  
@@ -136,5 +136,3 @@ passwd 파일에 level9의 shadow 파일 정보를 저장했습니다.
 <img data-action="zoom" src='{{ "assets/ftz/level8/6.png" | relative_url }}' alt='relative'>   
 
 John the Ripper 패스워드 크래킹 툴을 사용하여 level9의 비밀번호를 획득할 수 있습니다.  
-
--->

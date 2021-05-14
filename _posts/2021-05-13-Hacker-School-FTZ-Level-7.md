@@ -5,7 +5,7 @@ description: "Do you know the ASCII?"
 comments: true
 categories: ftz
 ---
-<!--
+
 <img data-action="zoom" src='{{ "assets/ftz/level7/1.jpg" | relative_url }}' alt='relative'>  
 
 ## 1) level7/come together 입력해 로그인  
@@ -91,5 +91,3 @@ root 계정 정보: root/hackerschool
 <img data-action="zoom" src='{{ "assets/ftz/level7/8.png" | relative_url }}' alt='relative'>  
 
 /bin/level7 프로그램을 실행시켜 'mate'를 입력하니 level8의 비밀번호를 획득할 수 있었습니다.  
-
--->
