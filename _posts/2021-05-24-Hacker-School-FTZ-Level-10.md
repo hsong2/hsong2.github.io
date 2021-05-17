@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Hacker School FTZ - Level 10"
-description: "Do you know the ?"
+description: "Do you know the shared memory?"
 comments: true
 categories: ftz
 ---
