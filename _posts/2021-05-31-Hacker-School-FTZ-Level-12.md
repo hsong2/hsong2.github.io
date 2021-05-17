@@ -10,7 +10,7 @@ categories: ftz
 
 ## 1) level12/it is like this 입력해 로그인  
 
-<img data-action="zoom" src='{{ "assets/ftz/level10/2.png" | relative_url }}' alt='relative'>  
+<img data-action="zoom" src='{{ "assets/ftz/level12/2.png" | relative_url }}' alt='relative'>  
 
 ``` c
 #include <stdio.h>
