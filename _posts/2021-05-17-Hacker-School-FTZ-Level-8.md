@@ -133,6 +133,6 @@ passwd 파일에 level9의 shadow 파일 정보를 저장했습니다.
 
 <img data-action="zoom" src='{{ "assets/ftz/level8/6.png" | relative_url }}' alt='relative'>   
 
-<img data-action="zoom" src='{{ "assets/ftz/level8/6.png" | relative_url }}' alt='relative'>   
+<img data-action="zoom" src='{{ "assets/ftz/level8/7.png" | relative_url }}' alt='relative'>   
 
 John the Ripper 패스워드 크래킹 툴을 사용하여 level9의 비밀번호를 획득할 수 있습니다.  
