@@ -39,7 +39,7 @@ int execve(const char *pathname, char *const argv[], char *const envp[]);
 
 여기서 execve 함수는 pathname으로 참조되는 프로그램을 실행합니다.  
 
-<a href="https://man7.org/linux/man-pages/man2/execve.2.html"execve 함수</a>를 사용해 pathname으로 참조된 프로그램을 실행하면 pathname 프로그램을 위해 현재 실행 중인 프로그램의 스택, 힙, 데이터 세그먼트를 초기화하고 해당 메모리로 대체하여 사용합니다.    
+<a href="https://man7.org/linux/man-pages/man2/execve.2.html">execve 함수</a>를 사용해 pathname으로 참조된 프로그램을 실행하면 pathname 프로그램을 위해 현재 실행 중인 프로그램의 스택, 힙, 데이터 세그먼트를 초기화하고 해당 메모리로 대체하여 사용합니다.    
 
 * pathname  
 이진 실행 파일 또는 '#!interpreter [optional-arg]' 형식으로 시작하는 스크립트여야 합니다.  
