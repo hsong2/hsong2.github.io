@@ -9,6 +9,7 @@ disqus:
   shortname: hsong2-github-io
 # Minima date format
 # refer to https://shopify.github.io/liquid/filters/date/ if you want to customize this
+google_analytics: G-H5SJV8FDXF
 minima:
   date_format: "%b %-d, %Y"
   # generate social links in footer
