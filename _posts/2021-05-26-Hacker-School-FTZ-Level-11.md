@@ -24,7 +24,7 @@ int main( int argc, char *argv[] )
         char str[256];
 
         setreuid( 3092, 3092 );
-        strcpy( str, argv[1] );
+        strcpy( str, argv\[1\] );
         printf( str );
 }
 ```
@@ -74,12 +74,12 @@ main 함수에 breakpoint를 설정하고 실행(r)합니다.
 strcpy 함수를 실행시키기 위해 인자를 2개 입력 받습니다.  
 
 ``` c
-strcpy( str, argv[1] );
+strcpy( str, argv\[1\] );
 ```
 
-스택에는 함수 인자의 뒷 부분부터 push 합니다. 그래서 argv[1]부터 push 하는 어셈블리 코드를 확인할 수 있습니다.  
+스택에는 함수 인자의 뒷 부분부터 push 합니다. 그래서 argv\[1\]부터 push 하는 어셈블리 코드를 확인할 수 있습니다.  
 
-<main+43>부터 <main+49>를 보면 argv[1]의 주소를 eax 레지스터에 입력하고 eax가 담고있는 주소를 스택에 push 합니다.  
+<main+43>부터 <main+49>를 보면 argv\[1\]의 주소를 eax 레지스터에 입력하고 eax가 담고있는 주소를 스택에 push 합니다.  
 
 그 다음 str 배열의 주소인 ebp-264 값을 eax 레지스터에 입력하고 eax가 담고있는 주소를 스택에 push 합니다.  
 
@@ -87,9 +87,9 @@ strcpy( str, argv[1] );
 <img data-action="zoom" src='{{ "assets/ftz/level11/7.png" | relative_url }}' alt='relative'>  
 
 <main+58>인 0x80483ce까지 실행한 뒤 스택에 쌓인 모습을 보면 위의 그림과 같습니다.  
-0xbfffdc40은 str 배열의 주소이고 0xbffffb27은 argv[1]의 주소입니다.  
+0xbfffdc40은 str 배열의 주소이고 0xbffffb27은 argv\[1\]의 주소입니다.  
 
-실제로 argv[1](0xbffffb27)에 저장된 값을 보면 처음 실행시 인자로 입력한 내용이 저장되어 있습니다.  
+실제로 argv\[1\](0xbffffb27)에 저장된 값을 보면 처음 실행시 인자로 입력한 내용이 저장되어 있습니다.  
 
 <img data-action="zoom" src='{{ "assets/ftz/level11/8.png" | relative_url }}' alt='relative'>  
 
@@ -102,11 +102,19 @@ strcpy( str, argv[1] );
 
 스택에 str 배열이 할당받은 주소를 알았다면 bof 취약점을 이용해 RET 주소를 str 배열의 주소로 바꿔보겠습니다.  
 
-str 배열에서 SFP까지 총 264바이트만큼 떨어져 있습니다. 264바이트를 NULL값(\x90)과 쉘코드(25바이트)로 채우겠습니다.  
+str 배열에서 SFP까지 총 264바이트만큼 떨어져 있습니다. 264바이트를 NOP(\x90)과 쉘코드(25바이트)로 채우겠습니다.  
+
+NOP Sled를 수행하기 위해 쉘코드 앞에 NOP(No-OPeration)을 채웁니다.  
+NOP은 실행을 해도 실행할 명령어가 없으면 실행 포인터가 다음 흐름으로 넘어갑니다.  
+
+만약 쉘코드가 맨 앞부분에 나온다면 RET 주소를 쉘코드가 저장되어 있는 주소를 정확히 특정하여 입력해줘야 합니다.  
+하지만 프로그램이 실행할 때마다 스택, 힙, 라이브러리 주소가 바뀌는 ASLR 보호 기법이 적용된 환경에서는  
+쉘코드가 저장되어 있는 str 배열의 주소를 특정하기 어렵기 때문에 쉘코드 앞부분에 NOP을 채웁니다.  
+RET 주소에 저장된 주소로 이동했을 때 NOP을 만나면 NOP이 끝나는 위치까지 실행흐름을 아래로 흘러 보내 쉘코드를 실행시킬 수 있습니다.  
 
 <img data-action="zoom" src='{{ "assets/ftz/level11/10.png" | relative_url }}' alt='relative'>  
 
-그림과 같이 200바이트 NULL값 + 25바이트 쉘코드 + 43바이트 NULL값 + RET주소(str 배열 주소)를 프로그램 실행시 인자로 입력합니다.  
+그림과 같이 200바이트 NOP + 25바이트 쉘코드 + 43바이트 NOP + RET주소(str 배열 주소)를 프로그램 실행시 인자로 입력합니다.  
 
 4번에서 예상했던 str 배열 주소 값이 이번 실행에서는 다른 위치에 할당됐는지 Segmentation fault가 발생합니다.  
 
@@ -116,11 +124,12 @@ RET 주소를 바꿔서 여러 번 시도해보니 shell을 획득할 수 있습
 
 위와 같은 방법으로 attackme 프로그램에서도 bof를 시도해보겠습니다.  
 
-str 배열의 주소를 특정하는 것이 어려워 argv[1]의 주소를 RET에 적은 뒤 bof를 시도했습니다.  
+str 배열의 주소를 특정하는 것이 어려워 argv\[1\]의 주소를 RET에 적은 뒤 bof를 시도했습니다.  
+성공할 때까지 이 작업을 무한 반복하면 됩니다.  
 
 <img data-action="zoom" src='{{ "assets/ftz/level11/11.png" | relative_url }}' alt='relative'>  
 
 
 <img data-action="zoom" src='{{ "assets/ftz/level11/12.png" | relative_url }}' alt='relative'>  
 
-위 그림과 같이 argv[1] 주소와 인접한 주소를 RET에 대입하니 shell 코드가 실행되며 level12의 비밀번호를 획득할 수 있습니다.  
+위 그림과 같이 argv\[1\] 주소와 인접한 주소를 RET에 대입하니 shell 코드가 실행되며 level12의 비밀번호를 획득할 수 있습니다.  
