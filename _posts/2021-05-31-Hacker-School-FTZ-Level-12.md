@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Hacker School FTZ - Level 12"
-description: "Do you know the ?"
+description: "Do you know the EggShell?"
 comments: true
 categories: ftz
 ---
@@ -166,11 +166,22 @@ NOP으로 268 byte를 채우고 RET에 EGG 환경 변수 위치한 주소(=쉘�
 리틀 엔디언 방식으로 저장되기 때문에 0xbffffc88를 입력할 때는 \x88\xfc\xff\xbf로 입력해야 합니다.  
 
 표준 입력을 받는 부분(gets)에 대한 내용을 프로그램 실행 시 입력하기 위해 파이프라인('|')을 사용합니다.   
+이 때는 리다이렉션('>')을 사용하면 안 됩니다.  
+만약 리다이렉션으로 입력을 넘겨준다면 입력한 내용이 파일에 저장됩니다. attackme 프로그램의 내용은 다 사라지고 입력된 내용만이 저장될 것입니다.  
+
+<img data-action="zoom" src='{{ "assets/ftz/level12/12.png" | relative_url }}' alt='relative'>  
+
+리다이렉션을 사용했더니 실행프로그램인 am의 사이즈가 변경되는 것을 확인할 수 있습니다.  
+해당 프로그램은 바이너리 파일이 아니라며 실행되지 않습니다.  
+
+<img data-action="zoom" src='{{ "assets/ftz/level12/13.png" | relative_url }}' alt='relative'>  
+
+실행하는 프로그램에서 표준 입력 받는 부분을 실행시 입력하기 위해선 파이프라인('|')을 사용해야 합니다.  
 
 ``` bash
 (python -c 'print "\x90"*268+"\x88\xfc\xff\xbf"'; cat) | ./attackme
 ```
 
-<img data-action="zoom" src='{{ "assets/ftz/level12/12.png" | relative_url }}' alt='relative'>  
+<img data-action="zoom" src='{{ "assets/ftz/level12/14.png" | relative_url }}' alt='relative'>  
 
 환경 변수를 이용하니 여러 번 반복 수행할 필요없이 깔끔하게 풀 수 있었습니다.  

