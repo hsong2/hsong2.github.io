@@ -351,3 +351,6 @@ int main(void)
 <img data-action="zoom" src='{{ "assets/ftz/shellcode/13.png" | relative_url }}' alt='relative'>  
 
 위 사진과 같이 쉘코드가 정상적으로 실행하는 것을 확인할 수 있습니다.  
+
+<p><a id="setreuid"></a></p>
+## 8) setreuid가 포함된 쉘코드 만들기  
