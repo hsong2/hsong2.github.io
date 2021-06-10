@@ -3,7 +3,7 @@ layout: post
 title: "Hacker School FTZ - Level 17"
 description: "Do you know how to call the function (2)?"
 comments: true
-categories: ftz
+categories: FTZ
 ---
 
 <img data-action="zoom" src='{{ "assets/ftz/level17/1.jpg" | relative_url }}' alt='relative'>  

@@ -3,7 +3,7 @@ layout: post
 title: "Hacker School FTZ - Level 3"
 description: "Can you run multiple commands from the shell at once, on a single line?"
 comments: true
-categories: ftz
+categories: FTZ
 ---
 <img data-action="zoom" src='{{ "assets/ftz/level3/1.png" | relative_url }}' alt='relative'>  
 

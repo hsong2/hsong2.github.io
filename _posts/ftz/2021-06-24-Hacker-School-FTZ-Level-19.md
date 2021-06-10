@@ -3,7 +3,7 @@ layout: post
 title: "Hacker School FTZ - Level 19"
 description: "Do you know the ?"
 comments: true
-categories: ftz
+categories: FTZ
 ---
 
 <img data-action="zoom" src='{{ "assets/ftz/level19/1.jpg" | relative_url }}' alt='relative'>  

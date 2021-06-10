@@ -3,7 +3,7 @@ layout: post
 title: "Hacker School FTZ - Level 1"
 description: "Do you know the file permission and SetUID in the Linux?"
 comments: true
-categories: ftz
+categories: FTZ
 
 ---
 <img data-action="zoom" src='{{ "assets/ftz/level1/ftz_level1.jpg" | relative_url }}' alt='relative'>  

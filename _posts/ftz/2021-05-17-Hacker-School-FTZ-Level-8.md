@@ -3,7 +3,7 @@ layout: post
 title: "Hacker School FTZ - Level 8"
 description: "Do you know the John the Ripper?"
 comments: true
-categories: ftz
+categories: FTZ
 ---
 
 <img data-action="zoom" src='{{ "assets/ftz/level8/1.jpg" | relative_url }}' alt='relative'>  

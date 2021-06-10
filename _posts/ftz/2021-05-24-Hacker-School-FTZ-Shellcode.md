@@ -3,7 +3,7 @@ layout: post
 title: "Hacker School FTZ - Shellcode"
 description: "Do you know how can make the shellcode?"
 comments: true
-categories: ftz
+categories: FTZ
 ---
 
 <img data-action="zoom" src='{{ "assets/ftz/shellcode/1.jpg" | relative_url }}' alt='relative'>  

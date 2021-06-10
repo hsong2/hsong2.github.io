@@ -3,7 +3,7 @@ layout: post
 title: "Hacker School FTZ - Level 15"
 description: "Do you know the pointer?"
 comments: true
-categories: ftz
+categories: FTZ
 ---
 
 <img data-action="zoom" src='{{ "assets/ftz/level15/1.jpg" | relative_url }}' alt='relative'>  
