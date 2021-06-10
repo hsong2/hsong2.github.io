@@ -3,7 +3,8 @@ layout: post
 title: "Hacker School FTZ - Level 9"
 description: "Do you know the buffer over flow?"
 comments: true
-categories: FTZ
+categories: [FTZ]
+tags: [FTZ]
 ---
 
 <img data-action="zoom" src='{{ "assets/ftz/level9/1.jpg" | relative_url }}' alt='relative'>  

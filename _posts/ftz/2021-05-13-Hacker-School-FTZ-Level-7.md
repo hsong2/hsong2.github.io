@@ -3,7 +3,8 @@ layout: post
 title: "Hacker School FTZ - Level 7"
 description: "Do you know the ASCII?"
 comments: true
-categories: FTZ
+categories: [FTZ]
+tags: [FTZ]
 ---
 
 <img data-action="zoom" src='{{ "assets/ftz/level7/1.jpg" | relative_url }}' alt='relative'>  

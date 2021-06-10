@@ -3,7 +3,8 @@ layout: post
 title: "Hacker School FTZ - Level 6"
 description: "Do you know the telnet vulnerability of BBS service?"
 comments: true
-categories: FTZ
+categories: [FTZ]
+tags: [FTZ]
 ---
 
 <img data-action="zoom" src='{{ "assets/ftz/level6/1.jpg" | relative_url }}' alt='relative'>  

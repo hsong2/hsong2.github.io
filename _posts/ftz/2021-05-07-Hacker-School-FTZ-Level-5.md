@@ -3,7 +3,8 @@ layout: post
 title: "Hacker School FTZ - Level 5"
 description: "Do you know the race condition attack?"
 comments: true
-categories: FTZ
+categories: [FTZ]
+tags: [FTZ]
 ---
 <img data-action="zoom" src='{{ "assets/ftz/level5/1.png" | relative_url }}' alt='relative'>  
 

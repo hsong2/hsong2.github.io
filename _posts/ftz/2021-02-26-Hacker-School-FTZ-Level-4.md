@@ -3,7 +3,8 @@ layout: post
 title: "Hacker School FTZ - Level 4"
 description: "Do you know the vulnerability of the finger service?"
 comments: true
-categories: FTZ
+categories: [FTZ]
+tags: [FTZ]
 ---
 <img data-action="zoom" src='{{ "assets/ftz/level4/1.png" | relative_url }}' alt='relative'>  
 

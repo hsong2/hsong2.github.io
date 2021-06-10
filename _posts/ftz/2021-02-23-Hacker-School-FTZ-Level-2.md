@@ -3,7 +3,8 @@ layout: post
 title: "Hacker School FTZ - Level 2"
 description: "Do you know that you can use the shell command in the vi editor"
 comments: true
-categories: FTZ
+categories: [FTZ]
+tags: [FTZ]
 ---
 <img data-action="zoom" src='{{ "assets/ftz/level2/1.jpg" | relative_url }}' alt='relative'>  
 
