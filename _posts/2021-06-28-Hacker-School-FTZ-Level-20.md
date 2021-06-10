@@ -20,4 +20,4 @@ main(int argc,char **argv)
 }
 ```
  
-<img data-action="zoom" src='{{ "assets/ftz/level20/2.jpg" | relative_url }}' alt='relative'>  
+<img data-action="zoom" src='{{ "assets/ftz/level20/2.png" | relative_url }}' alt='relative'>  
