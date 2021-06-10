@@ -18,9 +18,9 @@ main()
 }
 ```
 
-<img data-action="zoom" src='{{ "assets/ftz/level19/2.jpg" | relative_url }}' alt='relative'>  
+<img data-action="zoom" src='{{ "assets/ftz/level19/2.png" | relative_url }}' alt='relative'>  
 
-<img data-action="zoom" src='{{ "assets/ftz/level19/3.jpg" | relative_url }}' alt='relative'>  
+<img data-action="zoom" src='{{ "assets/ftz/level19/3.png" | relative_url }}' alt='relative'>  
 
 코드를 통해 gets 함수를 사용해 입력 길이에 제한을 두지 않았다는 것을 확인하였고,  
 gdb로 분석해보니 buf 배열은 ebp에서 40 byte 떨어진 주소에 위치하고 bof를 방지하는 보안 대책이 없다는 것을 확인했습니다.  
@@ -28,7 +28,7 @@ gdb로 분석해보니 buf 배열은 ebp에서 40 byte 떨어진 주소에 위�
 RET에 쉘코드가 저장된 위치의 주소를 입력해 bof를 일으키면 쉘은 실행됩니다.  
 문제는 level19 권한의 쉘이 실행된다는 것입니다.  
 
-<img data-action="zoom" src='{{ "assets/ftz/level19/4.jpg" | relative_url }}' alt='relative'>  
+<img data-action="zoom" src='{{ "assets/ftz/level19/4.png" | relative_url }}' alt='relative'>  
 
 앞서 문제에서는 프로그램 코드 내에 setreuid 함수가 호출됐었습니다.  
 그러나 이번 문제에서는 setreuid 함수가 호출되지 않았습니다.  
@@ -41,7 +41,7 @@ RUID는 시스템에 접속한 사용자의 ID입니다. 프로세스를 시작�
 EUID는 프로세스에 대한 권한을 결정합니다. 프로그램에 SetUID가 설정되어 있다면 프로세스의 권한은 일시적으로 user의 ID를 갖습니다.  
 SUID는 이전 EUID 값을 저장하는 데 사용됩니다. SUID로 이전 EUID를 복원할 수 있습니다.  
 
-<img data-action="zoom" src='{{ "assets/ftz/level19/5.jpg" | relative_url }}' alt='relative'>  
+<img data-action="zoom" src='{{ "assets/ftz/level19/5.png" | relative_url }}' alt='relative'>  
 
 SetUID가 설정된 attackme 파일을 실행하기 전에는 RUID=level19, EUID=level19 입니다.
 attackme 프로그램이 실행하면 EUID(level19)를 SUID에 복사한 뒤, EUID는 level20 user의 ID를 일시적으로 갖습니다.  
@@ -94,5 +94,5 @@ gcc -o getenv getenv.c
 ```
 
 
-<img data-action="zoom" src='{{ "assets/ftz/level19/6.jpg" | relative_url }}' alt='relative'>  
+<img data-action="zoom" src='{{ "assets/ftz/level19/6.png" | relative_url }}' alt='relative'>  
 
