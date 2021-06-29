@@ -5,7 +5,7 @@ comments: true
 categories: [LOB]
 tags: [LOB]
 ---
-<img data-action="zoom" src='{{ "assets/ftz/level2/1.jpg" | relative_url }}' alt='relative'>  
+<img data-action="zoom" src='{{ "assets/lob/level2/1.jpg" | relative_url }}' alt='relative'>  
 
 ## 1) gremlin/hello bof world 입력하여 로그인하기  
 

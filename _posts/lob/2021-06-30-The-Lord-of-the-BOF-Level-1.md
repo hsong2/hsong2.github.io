@@ -5,7 +5,7 @@ comments: true
 categories: [LOB]
 tags: [LOB]
 ---
-<img data-action="zoom" src='{{ "assets/ftz/level1/1.jpg" | relative_url }}' alt='relative'>  
+<img data-action="zoom" src='{{ "assets/lob/level1/1.jpg" | relative_url }}' alt='relative'>  
 
 ## 1) gate/gate 입력하여 로그인하기  
 
