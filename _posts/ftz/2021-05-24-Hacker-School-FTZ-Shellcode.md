@@ -19,7 +19,7 @@ tags: [FTZ]
 
 -> <a href="#onlybash">쉘만 실행하는 25 byte 쉘코드</a>
 
--> <a href="#setreuid">setreuid 함수 호출이 포함된 39 byte 쉘코드</a>
+-> <a href="#setreuid">setreuid 함수 호출이 포함된 39 byte / 35 byte 쉘코드</a>
 
 <hr>
 
@@ -365,7 +365,7 @@ int main(void)
 <hr> 
 
 <p><a id="setreuid"></a></p>
-# setreuid 함수 호출이 포함된 39 byte 쉘코드  
+# setreuid 함수 호출이 포함된 39 byte / 35 byte 쉘코드  
 
 ## 1) Linux 쉘을 실행하는 C언어 프로그램 작성  
 
