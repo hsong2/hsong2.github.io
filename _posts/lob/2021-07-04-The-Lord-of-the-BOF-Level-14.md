@@ -102,7 +102,10 @@ execve 함수로 쉘을 실행하기 위해서는 filename에 "/bin/sh" 문자�
 4가지 방법 중 4번 방법으로 level14 문제를 풀겠습니다.  
 
 <p><a id="4"></a></p>
-4. giant 프로그램 실행시 두번째 인자로 "/bin/sh" 문자열을 입력하여 두번째 인자 주소가 저장된 주소를 execve 함수의 2번째 인자로 사용한다.  
+
+## 네번째 방법   
+
+### giant 프로그램 실행시 두번째 인자로 "/bin/sh" 문자열을 입력하여 두번째 인자 주소가 저장된 주소를 execve 함수의 2번째 인자로 사용한다.  
 
 ### (1) 첫번째 인자  
 
@@ -173,7 +176,10 @@ argv가 4일 때 구한 0xbffffb30 대신, AAAA에 0xbffffb2c(=\x2c\xfb\xff\xbf)
 <hr>
 
 <p><a id="1"></a></p>
-1. buffer에 "/bin/sh" 문자열의 주소를 넣어 execve 함수의 2번째 인자로 사용한다.(?)  
+
+## 첫번째 방법  
+
+### buffer에 "/bin/sh" 문자열의 주소를 넣어 execve 함수의 2번째 인자로 사용한다.(?)  
 
 <img data-action="zoom" src='{{ "assets/lob/level14/11.png" | relative_url }}' alt='relative'>  
 
@@ -190,7 +196,10 @@ buffer에 "/bin/sh" 주소를 안 넣어도 0xbffffafc 값을 넣어주면 bash�
 현재 내가 갖고 있는 지식으로는 이에 대한 이유를 모르겠음  
 
 <p><a id="2"></a></p>
-2. execve 함수 인자에 exit를 넣어 execve 함수의 실행을 종료하고, 복귀 주소에 system 함수 주소를 입력하여 system 함수를 호출한다.  
+
+## 두번째 방법  
+
+### execve 함수 인자에 exit를 넣어 execve 함수의 실행을 종료하고, 복귀 주소에 system 함수 주소를 입력하여 system 함수를 호출한다.  
 
 execve 함수에 exit를 넣어 실행을 종료하고 system("/bin/sh")를 실행하는 방법입니다.  
 RET 부분에 execve 함수의 주소를 넣고 복귀 주소로 system 함수의 주소를 입력합니다.  
@@ -203,7 +212,10 @@ RET 부분에 execve 함수의 주소를 넣고 복귀 주소로 system 함수�
 ```
 
 <p><a id="3"></a></p>
-3. 환경변수에 "/bin/sh" 문자열을 저장하여 해당 문자열이 저장된 환경변수의 주소를 execve 함수의 2번째 인자로 사용한다.  
+
+## 세번째 방법  
+
+### 환경변수에 "/bin/sh" 문자열을 저장하여 해당 문자열이 저장된 환경변수의 주소를 execve 함수의 2번째 인자로 사용한다.  
 
 <img data-action="zoom" src='{{ "assets/lob/level14/14.png" | relative_url }}' alt='relative'>  
 
